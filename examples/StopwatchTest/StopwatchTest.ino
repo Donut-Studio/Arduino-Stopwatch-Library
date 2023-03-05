@@ -1,6 +1,6 @@
 /*
   DonutStudioStopwatch.h - Library for creating a stopwatch with the millis()-function from the arduino.
-  Created by Donut Studio, March 02, 2023.
+  Created by Donut Studio, March 05, 2023.
   Released into the public domain.
 */
 
@@ -28,17 +28,7 @@ void loop()
 
 void printStopwatch()
 {
-  Serial.print("total:  ");
-  Serial.print(sw.getElapsedHours());
-  Serial.print(" ");
-  Serial.print(sw.getElapsedMinutes());
-  Serial.print(" ");
-  Serial.print(sw.getElapsedSeconds());
-  Serial.print(" ");
-  Serial.println(sw.getElapsedMilliseconds());
-  
-  Serial.print("elapsed:  ");
-  Serial.print(sw.getElapsedHours());
+  Serial.print(sw.getHours());
   Serial.print(":");
   Serial.print(sw.getMinutes());
   Serial.print(":");

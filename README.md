@@ -14,6 +14,11 @@ Cheers, Donut Studio!
 
 
 ***
+# TODO
+- pause and resume the stopwatch
+
+
+***
 # Installation
 1. download the `DonutStudioStopwatch` folder and extract it into the libraries folder of the Arduino Software
 2. start your arduino ide and open the example sketch at `File/Examples/DonutStudioStopwatch/StopwatchTest.ino`
@@ -42,8 +47,10 @@ sw2.stop();
 // check if the first stopwatch is counting
 sw1.isActive();
 
-// get the milliseconds from 0 to 999 from the second stopwatch
-int m = sw2.getMilliseconds();
+// get the milliseconds from 0 to 999 from the second stopwatch object
+int ms = sw2.getMilliseconds();
+// get the milliseconds from 0 to 999 from the first stopwatch object
+int s = sw1.getSeconds();
 ```
 
 
@@ -52,25 +59,21 @@ int m = sw2.getMilliseconds();
 CONSTRUCTOR
 - `Stopwatch(bool instantStart = false);` => constructor for the class 
 
-STOPWATCH
+MAIN
 - `void start();` => starts to count, if it is already counting it stops first
 - `void stop();` => stops counting
 - `bool isActive();` => checks if the stopwatch is already counting
 
-TOTAL ELAPSED TIME
-- `unsigned long getElapsedMilliseconds();` => get the total elapsed milliseconds
-- `unsigned long getElapsedSeconds();` => get the total elapsed seconds
-- `unsigned long getElapsedMinutes();` => get the total elapsed minutes
-- `int getElapsedHours();` => get the total elapsed hours
-
 ELAPSED TIME
+- `unsigned long getElapsedMilliseconds();` => get the total elapsed milliseconds
 - `int getMilliseconds();` => get the elapsed milliseconds (from 0-999)
 - `int getSeconds();` => get the elapsed seconds (from 0-59)
 - `int getMinutes();` => get the elapsed minutes (from 0-59)
+- `int getHours();` => get the elapsed hours
 
 
 ***
 # Credits
 DonutStudioStopwatch.h - Library for creating a stopwatch with the millis()-function from the arduino.
-Created by Donut Studio, March 02, 2023.
+Created by Donut Studio, March 05, 2023.
 Released into the public domain.
