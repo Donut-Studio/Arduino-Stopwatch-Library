@@ -1,45 +1,39 @@
 /*
-  DonutStudioStopwatch.h - Library for creating a stopwatch with the millis()-function from the arduino.
-  Created by Donut Studio, March 05, 2023.
+  DonutStudioStopwatch.h - Arduino library for creating a stopwatch with the millis()-function.
+  Created by Donut Studio, Febuary 01, 2024.
   Released into the public domain.
 */
 
 #ifndef DonutStudioStopwatch.h
 #define DonutStudioStopwatch.h
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 
 class Stopwatch
 {
-  /*
-    --- PUBLIC ---
-  */
+  /* --- PUBLIC --- */
   public:
-    /*
-      --- CONSTRUCTOR ---
-    */
+    /* --- CONSTRUCTOR --- */
 
     // constructor for the class 
     Stopwatch(bool instantStart = false);
 
+    /* --- METHODS --- */
+    /* MAIN */
 
-    /*
-      --- METHODS ---
-    */
-
-
-    /*-- MAIN --*/
-
-    // starts to count, if it is already counting it stops first
+    // start to count from the time this method is called
     void start();
-    // stops counting
+    // stop counting
     void stop();
-    // checks if the stopwatch is already counting
+    // returns true if the stopwatch is active
     bool isActive();
+    // pause or resume the stopwatch
+    void setPause(bool value);
+    // returns true if the stopwatch is paused
+    bool isPaused();
 
-
-    /*-- ELAPSED TIME --*/
+    /* ELAPSED TIME */
 
     // get the total elapsed milliseconds
     unsigned long getElapsedMilliseconds();
@@ -52,17 +46,16 @@ class Stopwatch
     // get the elapsed hours
     int getHours();
 
-
-  /*
-    --- PRIVATE ---
-  */
+  /* --- PRIVATE --- */
   private:
-    /*
-      --- VARIABLES ---
-    */
+    /* --- VARIABLES --- */
 
     bool _stopwatchStarted = false;
     unsigned long _stopwatchStartTimestamp = 0;
     unsigned long _stopwatchDuration = 0;
+
+    bool _stopwatchPaused = false;
+    unsigned long _stopwatchPauseTimestamp = 0;
+    unsigned long _stopwatchPauseTime = 0;
 };
 #endif

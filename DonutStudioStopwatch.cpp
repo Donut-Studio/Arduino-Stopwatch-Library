@@ -1,82 +1,83 @@
 /*
-  DonutStudioStopwatch.h - Library for creating a stopwatch with the millis()-function from the arduino.
-  Created by Donut Studio, March 05, 2023.
+  DonutStudioStopwatch.h - Arduino library for creating a stopwatch with the millis()-function.
+  Created by Donut Studio, Febuary 01, 2024.
   Released into the public domain.
 */
 
-#include "Arduino.h"
-#include "DonutStudioStopwatch.h"
+#include <Arduino.h>
+#include <DonutStudioStopwatch.h>
 
-/*
-  --- --- CONSTRUCTOR --- ---
-*/
+
+/* --- CONSTRUCTOR --- */
 
 Stopwatch::Stopwatch(bool instantStart)
 {
-  // check if the stopwatch should count instantly
   if (instantStart)
     start();
 }
 
-
-/*
-  --- --- METHODS --- ---
-*/
-
-/*
-  --- MAIN ---
-*/
+/* --- METHODS --- */
+/* MAIN */
 
 void Stopwatch::start()
 {
-  // set the stopwatch boolean
   _stopwatchStarted = true;
-  // set the start timestamp
+  _stopwatchPaused = false;
+  _stopwatchPauseTime = 0;
   _stopwatchStartTimestamp = millis();
 }
 void Stopwatch::stop()
 {
-  // reset the boolean to false
+  _stopwatchDuration = getElapsedMilliseconds();
   _stopwatchStarted = false;
-  // set the duration
-  _stopwatchDuration = millis() - _stopwatchStartTimestamp;
 }
 bool Stopwatch::isActive()
 {
-  // return the boolean which indicates the state
   return _stopwatchStarted;
 }
+void Stopwatch::setPause(bool value)
+{
+  if (_stopwatchPaused == value)
+    return;
 
+  _stopwatchPaused = value;
+  if (value)
+    _stopwatchPauseTimestamp = millis();
+  else
+    _stopwatchPauseTime += millis() - _stopwatchPauseTimestamp;
+}
+bool Stopwatch::isPaused()
+{
+  return _stopwatchPaused;
+}
 
-/*
-  --- ELAPSED TIME ---
-*/
+/* ELAPSED TIME */
 
 unsigned long Stopwatch::getElapsedMilliseconds()
 {
-  // if the stopwatch is still active, calculate and return the current time (prevents millis overflow)
-  if (isActive())
-    return millis() - _stopwatchStartTimestamp;
-  // if the stopwatch was stopped, return the duration
-  return _stopwatchDuration;
+  if (!_stopwatchStarted)
+    return _stopwatchDuration;
+
+  unsigned long mil = millis();
+  unsigned long elapsed = mil - _stopwatchStartTimestamp - _stopwatchPauseTime;
+
+  if (_stopwatchPaused)
+    return elapsed - mil + _stopwatchPauseTimestamp;
+  return elapsed;
 }
 int Stopwatch::getMilliseconds()
 {
-  // returns the elapsed milliseconds from 0 to 999
   return (int)(getElapsedMilliseconds() % 1000);
 }
 int Stopwatch::getSeconds()
 {
-  // returns the elapsed seconds from 0 to 59
   return (int)((getElapsedMilliseconds() / 1000) % 60);
 }
 int Stopwatch::getMinutes()
 {
-  // returns the elapsed minutes from 0 to 59
   return (int)((getElapsedMilliseconds() / 1000 / 60) % 60);
 }
 int Stopwatch::getHours()
 {
-  // returns the elapsed hours
   return (int)(getElapsedMilliseconds() / 1000 / 3600);
 }

@@ -1,29 +1,38 @@
 /*
-  DonutStudioStopwatch.h - Library for creating a stopwatch with the millis()-function from the arduino.
-  Created by Donut Studio, March 05, 2023.
+  DonutStudioStopwatch.h - Arduino library for creating a stopwatch with the millis()-function.
+  Created by Donut Studio, Febuary 01, 2024.
   Released into the public domain.
 */
 
 // include the libraray
-#include "DonutStudioStopwatch.h"
+#include <DonutStudioStopwatch.h>
+
+// connect GND and pin 2 to toggle pausing
+#define BUTTON 2
 
 // create an object of the Stopwatch class
 Stopwatch sw = Stopwatch(); 
 
 void setup() 
 {
-  // start the serial port
   Serial.begin(9600);
 
-  // print the current time
+  pinMode(BUTTON, INPUT_PULLUP);
+
   printStopwatch();
 
-  // start the stopwatch
   sw.start();
 }
 void loop() 
 {
   printStopwatch();
+
+  if (digitalRead(BUTTON) == 0)
+  {
+    while (digitalRead(BUTTON) == 0);
+    sw.setPause(!sw.isPaused());
+    Serial.println("toggled pause...");
+  }
 }
 
 void printStopwatch()
@@ -35,6 +44,4 @@ void printStopwatch()
   Serial.print(sw.getSeconds());
   Serial.print(":");
   Serial.println(sw.getMilliseconds());
-
-  Serial.println();
 }

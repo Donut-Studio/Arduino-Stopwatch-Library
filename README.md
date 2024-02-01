@@ -9,13 +9,8 @@ Cheers, Donut Studio!
 
 ***
 # Features
-- start and stop counting
-- get the elapsed time 
-
-
-***
-# TODO
-- pause and resume the stopwatch
+- start/stop and pause/resume counting
+- get the elapsed time
 
 
 ***
@@ -32,7 +27,7 @@ Then you can call functions to start and stop counting or get the elapsed time.
 Sample code:
 ```cpp
 // include the libraray
-#include "DonutStudioStopwatch.h"
+#include <DonutStudioStopwatch.h>
 
 // create an object of the stopwatch class
 Stopwatch sw1 = Stopwatch(); 
@@ -60,9 +55,11 @@ CONSTRUCTOR
 - `Stopwatch(bool instantStart = false);` => constructor for the class 
 
 MAIN
-- `void start();` => starts to count, if it is already counting it stops first
-- `void stop();` => stops counting
-- `bool isActive();` => checks if the stopwatch is already counting
+- `void start();` => start to count from the time this method is called
+- `void stop();` => stop counting
+- `bool isActive();` => returns true if the stopwatch is active
+- `void setPause(bool value);` => pause or resume the stopwatch
+- `bool isPaused();` => returns true if the stopwatch is paused
 
 ELAPSED TIME
 - `unsigned long getElapsedMilliseconds();` => get the total elapsed milliseconds
@@ -74,6 +71,6 @@ ELAPSED TIME
 
 ***
 # Credits
-DonutStudioStopwatch.h - Library for creating a stopwatch with the millis()-function from the arduino.
-Created by Donut Studio, March 05, 2023.
+DonutStudioStopwatch.h - Arduino library for creating a stopwatch with the millis()-function.
+Created by Donut Studio, Febuary 01, 2024.
 Released into the public domain.
