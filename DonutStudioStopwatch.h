@@ -1,11 +1,11 @@
 /*
   DonutStudioStopwatch.h - Arduino library for creating a stopwatch with the millis()-function.
-  Created by Donut Studio, Febuary 01, 2024.
+  Created by Donut Studio, March 11, 2024.
   Released into the public domain.
 */
 
-#ifndef DonutStudioStopwatch.h
-#define DonutStudioStopwatch.h
+#ifndef DonutStudioStopwatch_h
+#define DonutStudioStopwatch_h
 
 #include <Arduino.h>
 
